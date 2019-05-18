@@ -40,8 +40,9 @@ do
 		echo "$thisFile is not an image ... skipping"
 		continue
 	fi
-	echo -n "$thisFile "
 	exiftool "${fileArray[$i]}" -ExifIFD:DateTimeOriginal
+	
+	echo -n "$thisFile "
 	#change file OS modify date
 	exiftool -overwrite_original '-FileModifyDate<DateTimeOriginal' "${fileArray[$i]}"
 	#rename file
