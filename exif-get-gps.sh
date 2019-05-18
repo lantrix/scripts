@@ -8,4 +8,5 @@ if [ ! -n "$1" ]; then
     exit
 fi
 
+echo "Viewing all EXIF GPS data for ${1}"
 exiftool -G0:1 -s -n -GPS* "${1}"

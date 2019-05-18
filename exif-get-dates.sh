@@ -8,4 +8,5 @@ if [ ! -n "$1" ]; then
     exit
 fi
 
+echo "Viewing all EXIF time data for ${1}"
 exiftool -time:all -a -G0:1 -s "${1}"
