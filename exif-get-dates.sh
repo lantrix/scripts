@@ -9,4 +9,6 @@ if [ ! -n "$1" ]; then
 fi
 
 echo "Viewing all EXIF time data for ${1}"
+echo
+
 exiftool -time:all -a -G0:1 -s "${1}"
