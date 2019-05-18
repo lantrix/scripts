@@ -8,4 +8,4 @@ if [ ! -n "$1" ]; then
     exit
 fi
 
-exiftool "${1}" | grep -i date
+exiftool -time:all -a -G0:1 -s "${1}"
