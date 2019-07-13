@@ -19,7 +19,7 @@ if [ $# -gt 3 ]; then
     exitWithErrorMessage "$0: too many arguments"
 fi
 
-ls ${filename} >/dev/null 2>&1
+ls "${filename}" >/dev/null 2>&1
 if ! [ "$?" = "0" ]; then
 	echo >&2 "I can't find $filename. Aborting."; exit 1;
 fi
@@ -34,5 +34,5 @@ if ! [[ $longtitude =~ $re ]] ; then
    echo >&2 "Longtitude: $longtitude is not a valid Decimal Degrees. Aborting."; exit 1;
 fi
 
-exiftool -overwrite_original -preserve -XMP:GPSLatitude=${latitude} -XMP:GPSLongitude=${longtitude} -P $filename
-exiftool -a -G0:1 -s -n -GPS* $filename 
+exiftool -overwrite_original -preserve -XMP:GPSLatitude=${latitude} -XMP:GPSLongitude=${longtitude} -P "$filename"
+exiftool -a -G0:1 -s -n -GPS* "$filename"
