@@ -63,9 +63,9 @@ fi
 echo "Processing ${filename}"
 exifDateTime=${newDateTime//-/:}
 #Set DateTimeOriginal
-exiftool -overwrite_original -DateTimeOriginal="${exifDateTime}" $filename
+exiftool -overwrite_original -DateTimeOriginal="${exifDateTime}" "$filename"
 #change file Create Date
-exiftool -q -overwrite_original '-CreateDate<DateTimeOriginal' $filename
+exiftool -q -overwrite_original '-CreateDate<DateTimeOriginal' "$filename"
 #change file OS modify date
-exiftool -q -overwrite_original '-FileModifyDate<DateTimeOriginal' $filename
-exiftool -time:all -a -G0:1 -s $filename
+exiftool -q -overwrite_original '-FileModifyDate<DateTimeOriginal' "$filename"
+exiftool -time:all -a -G0:1 -s "$filename"

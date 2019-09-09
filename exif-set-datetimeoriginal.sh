@@ -54,5 +54,5 @@ fi
 echo "Processing ${filename}"
 exifDateTime=${newDateTime//-/:}
 #Set DateTimeOriginal
-exiftool -overwrite_original -preserve -DateTimeOriginal="${exifDateTime}" $filename
-exiftool -time:all -a -G0:1 -s $filename
+exiftool -overwrite_original -preserve -DateTimeOriginal="${exifDateTime}" "$filename"
+exiftool -time:all -a -G0:1 -s "$filename"
