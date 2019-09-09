@@ -17,10 +17,10 @@ if [ $# -gt 2 ]; then
     exitWithErrorMessage "$0: too many arguments"
 fi
 
-ls ${filename} >/dev/null 2>&1
+ls "${filename}" >/dev/null 2>&1
 if ! [ "$?" = "0" ]; then
 	echo >&2 "I can't find $filename. Aborting."; exit 1;
 fi
 
-exiftool -overwrite_original -preserve "-ImageDescription=${description}" $filename
-exiftool -G0:1 -s -n -ImageDescription $filename
+exiftool -overwrite_original -preserve "-ImageDescription=${description}" "$filename"
+exiftool -G0:1 -s -n -ImageDescription "$filename"

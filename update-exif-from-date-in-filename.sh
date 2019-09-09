@@ -38,7 +38,7 @@ fi
 
 # Check for filename. Must be in current working directory.
 filename=`basename $1`
-ls ${filename} >/dev/null 2>&1
+ls "${filename}" >/dev/null 2>&1
 if ! [ "$?" = "0" ]; then
 	echo >&2 "I require $filename to be in the current working directory. Aborting."; exit 1;
 fi
