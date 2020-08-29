@@ -16,7 +16,8 @@ longtitude=${2?param missing - longtitude}
 filename=${3?param missing - filename}
 
 if [ $# -gt 3 ]; then
-    exitWithErrorMessage "$0: too many arguments"
+    echo "$0: too many arguments"
+    exit 1
 fi
 
 ls "${filename}" >/dev/null 2>&1
