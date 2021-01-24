@@ -25,6 +25,10 @@ if ! [ "$?" = "0" ]; then
 	echo >&2 "I can't find $filename. Aborting."; exit 1;
 fi
 
+#Strip leading or trailing commas from GPS Coords
+latitude=$(echo $latitude |sed 's/^[[:punct:]]*//;s/[[:punct:]]*$//')
+longtitude=$(echo $longtitude |sed 's/^[[:punct:]]*//;s/[[:punct:]]*$//')
+
 re='^-?[0-9]+([.][0-9]+)?$'
 
 if ! [[ $latitude =~ $re ]] ; then
