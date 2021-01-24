@@ -26,8 +26,8 @@ if ! [ "$?" = "0" ]; then
 fi
 
 #Strip leading or trailing commas from GPS Coords
-latitude=$(echo $latitude |sed 's/^[[:punct:]]*//;s/[[:punct:]]*$//')
-longtitude=$(echo $longtitude |sed 's/^[[:punct:]]*//;s/[[:punct:]]*$//')
+latitude=$(echo $latitude |sed 's/^,*//;s/,*$//')
+longtitude=$(echo $longtitude |sed 's/^,*//;s/,*$//')
 
 re='^-?[0-9]+([.][0-9]+)?$'
 
