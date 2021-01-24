@@ -1,2 +1,3 @@
 # scripts
-Bash scripts for useful stuff
+
+Bash scripts for image manipulation of exif data
