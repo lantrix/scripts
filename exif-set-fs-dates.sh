@@ -2,7 +2,6 @@
 
 # Will set Exif and FS dates for:
 
-# - the DateTimeOriginal
 # - The File System Create Date/Time
 # - The File System Modification Date/Time
 
@@ -16,15 +15,12 @@
 # TAG:  0x9004  CreateDate  string  ExifIFD (called DateTimeDigitized by the EXIF spec.)
 # SPEC: 0x9004  36868   Photo   Exif.Photo.DateTimeDigitized    Ascii   The date and time when the image was stored as digital data.
 #
-# TAG:  0x9003  DateTimeOriginal    string  ExifIFD (date/time when original image was taken)
-# SPEC: 0x9003  36867   Image   Exif.Image.DateTimeOriginal Ascii   The date and time when the original image data was generated.
-#
 # ExifTool also allows FileModifyDate to be written, which provides full control over the filesystem modification date/time when writing
 
 command -v exiftool >/dev/null 2>&1 || { echo >&2 "I require exiftool but it's not installed. Aborting."; exit 1; }
 
 if [ ! -n "$1" ]; then
-        echo "Usage: `basename $0` 2018-01-01 12:00:00 Day1_20150102_161309_00002.jpg"
+        echo "Usage: `basename $0` 2018:01:01 12:00:00 Day1_20150102_161309_00002.jpg"
         echo
         exit
 fi
@@ -39,7 +35,8 @@ if ! [[ -f "${filename}" ]]; then
     echo >&2 "I can't find ${filename}. Aborting."; exit 1;
 fi
 
-newDateTime="${date} ${time}"
+dateWithDash=${date//:/-}
+newDateTime="${dateWithDash} ${time}"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     # Validate the date on a Linux machine (Redhat or Debian).  On Linux, this is
@@ -61,11 +58,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 echo "Processing ${filename}"
-exifDateTime=${newDateTime//-/:}
-#Set DateTimeOriginal
-exiftool -overwrite_original -DateTimeOriginal="${exifDateTime}" "$filename"
+newDateTime="${date} ${time}"
 #change file Create Date
-exiftool -q -overwrite_original '-CreateDate<DateTimeOriginal' "$filename"
+exiftool -q -overwrite_original -CreateDate="$newDateTime" "$filename"
 #change file OS modify date
-exiftool -q -overwrite_original '-FileModifyDate<DateTimeOriginal' "$filename"
+exiftool -q -overwrite_original '-FileModifyDate<CreateDate' "$filename"
 exiftool -time:all -a -G0:1 -s "$filename"
