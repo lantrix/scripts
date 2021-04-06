@@ -2,7 +2,7 @@
 outputFile='/tmp/_scanned_photo_index_raw.csv'
 # Header
 echo "Outputting to: ${outputFile}"
-echo "Photo ID,Filename,Date,Create (Scan) Date,Type,Resolution DPI,ImageSize,Megapixels,GPSLatitude,GPSLongitude,GPSPosition,ImageWidth,ImageHeight,FileSize,Album,Box,Custodian,Location,Metadata updated,Notes" > ${outputFile}
+echo "Photo ID;Filename;Date;Create (Scan) Date;Type;Resolution DPI;ImageSize;Megapixels;GPSLatitude;GPSLongitude;GPSPosition;ImageWidth;ImageHeight;FileSize;Album;Box;Custodian;Location;Metadata updated;Notes" > ${outputFile}
 # Data
 for photo in `ls -art |grep tif |grep -v reverse`; do
   echo "Parsing $photo"
