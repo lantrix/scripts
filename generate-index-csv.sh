@@ -11,9 +11,9 @@ for photo in `ls -art |grep tif |grep -v reverse`; do
   # Photo ID
   regex='^.*([0-9][0-9][0-9][0-9][0-9])\.tif'
   if [[ $photo =~ $regex ]]; then
-    echo -n "'${BASH_REMATCH[1]}," >> ${outputFile}
+    echo -n "'${BASH_REMATCH[1]};" >> ${outputFile}
   else
-    echo -n "'00000," >> ${outputFile}
+    echo -n "'00000;" >> ${outputFile}
   fi
   
   #Filename
