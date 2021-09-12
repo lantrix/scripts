@@ -46,5 +46,5 @@ do
 	#change file OS modify date
 	exiftool -overwrite_original '-FileModifyDate<DateTimeOriginal' "${fileArray[$i]}"
 	#rename file
-	exiftool '-FileName<DateTimeOriginal' -d "%Y-%m-%d %H.%M.%S%%-c.%%e" "${fileArray[$i]}"
+	exiftool '-FileName<DateTimeOriginal' -d "%Y-%m-%d_%H%M_%S%%+c.%%le" "${fileArray[$i]}"
 done
