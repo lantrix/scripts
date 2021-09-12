@@ -8,44 +8,54 @@ if [ ! -n "$1" ]; then
     exit
 fi
 
+testIfImage() {
+  local file=$1
+	local flag=0
+  fileType=$(file -b -I ${file})
+  if ! [[ $fileType == *"image"* ]]; then flag=1; fi
+	return $flag
+}
+
+function viewData() {
+  local file=$1
+	echo "Viewing all EXIF Description for $file"
+	echo
+
+	exiftool -G0:1 -s -n -ImageDescription "$file"
+	echo
+}
+
 #Count input files (for wildcards)
 count=$# #Parent shell expands wildcard - handle as array
-
 input="$@"
 
 if [ "$count" -gt 1 ]; then
 
 	# get length of an array
 	echo "Number of files $#"
-
 	# use for loop read all filenames
 	for thisFile in "${@}";
 	do
-		fileType=$(file -b -I ${thisFile})
-		if ! [[ $fileType == *"image"* ]]; then
+		testIfImage $thisFile
+		if [[ $? -ne 0 ]]; then 
 			echo "$thisFile is not an image ... skipping"
-			continue
+			echo
+		else
+			viewData $thisFile
 		fi
-		echo "Viewing all EXIF Description for $thisFile"
-		echo
-
-		exiftool -G0:1 -s -n -ImageDescription "$thisFile"
-
 	done
 elif [ "$count" -eq 1 ]; then
 	if [ $(find $input | wc -l) -ne 1 ]; then
 		echo "No matching files"
 		exit 1
 	else
-		fileType=$(file -b -I ${input})
-		if ! [[ $fileType == *"image"* ]]; then
-			echo "$thisFile is not an image ... skipping"
-		else
-			echo "Viewing all EXIF Description for $input"
+		testIfImage $input
+		if [[ $? -ne 0 ]]; then 
+			echo "$input is not an image ... skipping"
 			echo
-
-			exiftool -G0:1 -s -n -ImageDescription "$input"
-
+		else
+			echo "image found"
+			viewData $input
 		fi
 	fi
 fi
